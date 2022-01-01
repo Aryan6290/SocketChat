@@ -11,4 +11,5 @@ export const Data = {
   DATABASE_URL: process.env.DATABASE_URL,
   DATABASE_NAME: process.env.DATABASE_NAME,
   PORT: process.env.PORT,
+  JWT_SECRET_TOKEN: process.env.JWT_SECRET_TOKEN,
 };

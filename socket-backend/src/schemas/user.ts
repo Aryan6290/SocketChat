@@ -2,7 +2,7 @@ import { ObjectId } from "bson";
 
 export interface User {
   _id?: ObjectId;
-  name: string;
+  userName: string;
   email: string;
   password: string;
 }

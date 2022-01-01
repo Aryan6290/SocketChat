@@ -4,8 +4,9 @@ import {Image, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {imageAssets} from '../../data/data';
 import {RootStackParamsList} from '../../data/params';
+import {initService} from '../../services/BaseServices';
 import {gs} from '../../utils/globalstyles';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 interface SplashScreenProps {
   navigation: StackNavigationProp<RootStackParamsList, 'SPLASH'>;
 }
@@ -13,9 +14,33 @@ interface SplashScreenProps {
 const SplashScreen: React.FunctionComponent<SplashScreenProps> = ({
   navigation,
 }) => {
+  const navigateUser = async () => {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+      initService(token);
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'HOME',
+          },
+        ],
+      });
+    } else {
+      initService(null);
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'LOGIN',
+          },
+        ],
+      });
+    }
+  };
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('LOGIN');
+      navigateUser();
     }, 3000);
   }, []);
   return (

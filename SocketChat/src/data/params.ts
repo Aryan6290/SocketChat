@@ -1,10 +1,6 @@
 export type RootStackParamsList = {
   SPLASH: undefined;
   LOGIN: undefined;
-  SIGNUP: SignupScreenProps;
+  SIGNUP: undefined;
   HOME: undefined;
-};
-
-export type SignupScreenProps = {
-  otp: number;
 };

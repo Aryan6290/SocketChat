@@ -2,6 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {RootStackParamsList} from './data/params';
+import HomeScreen from './screens/HomeScreen/HomeScreen';
 import LoginScreen from './screens/LoginScreen/LoginScreen';
 import SignupScreen from './screens/SignUpScreen/SignupScreen';
 import SplashScreen from './screens/SplashScreen/SplashScreen';
@@ -20,6 +21,7 @@ const Router: React.FC<RouterProps> = ({}) => {
         <Stack.Screen name="SPLASH" component={SplashScreen} />
         <Stack.Screen name="LOGIN" component={LoginScreen} />
         <Stack.Screen name="SIGNUP" component={SignupScreen} />
+        <Stack.Screen name="HOME" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -25,15 +25,23 @@ const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
     try {
       const res = await loginUser(email, password);
       if (res.status === 200) {
+        console.log(res.data.token);
         await initService(res.data.token);
         await AsyncStorage.setItem('token', res.data.token);
-        navigation.navigate('HOME');
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'SIGNUP',
+            },
+          ],
+        });
       } else {
         showToast('Failed to login user! Check Internet or Try again!');
       }
-    } catch (error) {
-      showToast('Failed to login user! Check Internet or Try again!');
-      console.log(error);
+    } catch (error: any) {
+      showToast(error.response.data.message);
+      console.log(error.response.data.message);
     }
   };
   return (

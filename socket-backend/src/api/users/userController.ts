@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../../schemas/user";
 import jwt from "jsonwebtoken";
+
 export const loginUser = async (req: Request, res: Response) => {
   const db = getDatabase();
   try {
@@ -30,6 +31,7 @@ export const loginUser = async (req: Request, res: Response) => {
         message: " User Found",
         token: token,
         data: {
+          _id: isUser._id,
           userName: isUser.userName,
           email: isUser.email,
         },
@@ -77,5 +79,22 @@ export const signupNewUser = async (req: Request, res: Response) => {
     return res.status(500).send({ message: "Failed to add user" });
   } catch (error) {
     return res.status(500).send({ message: "Failed to add user" });
+  }
+};
+
+export const getAllUsers = async (req: Request, res: Response) => {
+  const db = getDatabase();
+  const { userId } = req.body;
+  try {
+    const users = await db
+      .collection<User>("users")
+      .find({ _id: { $ne: userId } })
+      .toArray();
+    if (users) {
+      return res.status(200).send({ message: "Users Fetched", data: users });
+    }
+    return res.status(400).send({ message: "Failed to get data!" });
+  } catch (error) {
+    return res.status(500).send({ message: "Backend ded lmao" });
   }
 };

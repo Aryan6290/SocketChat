@@ -1,4 +1,3 @@
-import { signInNewUser } from "./api/chat/chatController";
 import { router } from "./api/router";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -6,6 +5,7 @@ import express from "express";
 import { Data } from "./config";
 import { Server } from "socket.io";
 import http from "http";
+import { Message } from "./schemas/message";
 dotenv.config();
 const app = express();
 
@@ -32,18 +32,23 @@ app.use(
   },
   router
 );
+let clients: any = [];
 
 io.on("connection", (socket) => {
-  console.log("Connection started");
+  console.log("connetetd");
+  console.log(socket.id, "has joined");
   socket.on("signin", (id) => {
-    signInNewUser(socket, id);
+    console.log(id);
+    clients[id] = socket;
+    console.log(clients);
   });
-  socket.on("chat message", (msg) => {
+  socket.on("message", (msg) => {
     console.log(msg);
-    io.emit("chat message", msg);
+    let targetId = msg.targetId;
+    if (clients[targetId]) clients[targetId].emit("message", msg);
   });
 });
-
-app.listen(PORT, () => {
+app.listen(() => {});
+server.listen(PORT, () => {
   return console.log(`App is listening at http://localhost:${PORT}`);
 });

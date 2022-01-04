@@ -5,4 +5,5 @@ export const imageAssets = {
 
 export const COLORS = {
   PRIMARY: '#00796b',
+  DANGER: '#ea2440',
 };

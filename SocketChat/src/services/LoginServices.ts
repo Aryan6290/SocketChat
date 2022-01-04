@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const loginUser = async (email: string, password: string) => {
-  const body = {email, password};
+  const body = {email: email, password: password};
   const res = await axios.post('/user/login', body);
 
   return res;

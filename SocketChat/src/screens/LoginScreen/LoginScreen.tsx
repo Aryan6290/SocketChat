@@ -25,14 +25,18 @@ const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
     try {
       const res = await loginUser(email, password);
       if (res.status === 200) {
-        console.log(res.data.token);
+        console.log(res.data.data);
         await initService(res.data.token);
+        await AsyncStorage.setItem('userId', res.data.data._id);
         await AsyncStorage.setItem('token', res.data.token);
         navigation.reset({
           index: 0,
           routes: [
             {
-              name: 'SIGNUP',
+              name: 'HOME',
+              params: {
+                id: res.data.data._id,
+              },
             },
           ],
         });

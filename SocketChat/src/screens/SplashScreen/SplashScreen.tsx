@@ -16,6 +16,8 @@ const SplashScreen: React.FunctionComponent<SplashScreenProps> = ({
 }) => {
   const navigateUser = async () => {
     const token = await AsyncStorage.getItem('token');
+    const id = await AsyncStorage.getItem('userId');
+    console.log(id);
     if (token) {
       initService(token);
       navigation.reset({
@@ -23,6 +25,7 @@ const SplashScreen: React.FunctionComponent<SplashScreenProps> = ({
         routes: [
           {
             name: 'HOME',
+            params: {id: id},
           },
         ],
       });
@@ -42,6 +45,7 @@ const SplashScreen: React.FunctionComponent<SplashScreenProps> = ({
     setTimeout(() => {
       navigateUser();
     }, 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <SafeAreaView style={[gs.pageRoot, styles.centreContent]}>

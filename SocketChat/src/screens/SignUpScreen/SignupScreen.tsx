@@ -33,6 +33,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({navigation}) => {
           routes: [
             {
               name: 'HOME',
+              params: res.data.data._id,
             },
           ],
         });

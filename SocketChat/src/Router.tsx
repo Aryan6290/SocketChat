@@ -2,6 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {RootStackParamsList} from './data/params';
+import ChatScreen from './screens/ChatScreen/ChatScreen';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
 import LoginScreen from './screens/LoginScreen/LoginScreen';
 import SignupScreen from './screens/SignUpScreen/SignupScreen';
@@ -22,6 +23,7 @@ const Router: React.FC<RouterProps> = ({}) => {
         <Stack.Screen name="LOGIN" component={LoginScreen} />
         <Stack.Screen name="SIGNUP" component={SignupScreen} />
         <Stack.Screen name="HOME" component={HomeScreen} />
+        <Stack.Screen name="CHAT" component={ChatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

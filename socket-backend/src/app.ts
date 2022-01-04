@@ -34,18 +34,16 @@ app.use(
 );
 let clients: any = [];
 
-io.on("connection", (socket) => {
-  console.log("connetetd");
+io.sockets.on("connection", (socket) => {
   console.log(socket.id, "has joined");
   socket.on("signin", (id) => {
     console.log(id);
-    clients[id] = socket;
-    console.log(clients);
+    socket.join(id);
   });
-  socket.on("message", (msg) => {
-    console.log(msg);
-    let targetId = msg.targetId;
-    if (clients[targetId]) clients[targetId].emit("message", msg);
+  socket.on("chat message", (msg) => {
+    let targetId = msg.targetUser;
+    console.log(io.sockets.adapter.rooms);
+    io.to(targetId).emit("chat message", msg);
   });
 });
 app.listen(() => {});
